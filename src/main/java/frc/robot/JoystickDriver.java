@@ -8,7 +8,7 @@ class JoystickDriver{
     private SwerveDrivetrain drivetrain;
 
     public JoystickDriver(SwerveDrivetrain drive){
-        drivetrain =  drive;
+        drivetrain = drive;
     }
 	public void Drive(){
 		double xSpeed = joystick.getRawAxis(1);

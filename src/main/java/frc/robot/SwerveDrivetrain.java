@@ -34,7 +34,7 @@ public class SwerveDrivetrain {
 
 
         //Set angles
-        //TODO This could be  simpler
+        //TODO This could be refactored
         TL.SetTarget(states[0].angle.getDegrees());
         TR.SetTarget(states[1].angle.getDegrees());
         BL.SetTarget(states[2].angle.getDegrees());
