@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.math.geometry.*;
 
@@ -23,7 +22,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		drivetrain.Drive(new Translation2d(1, 0), 0.0);
+		
 	}
 
 	@Override
