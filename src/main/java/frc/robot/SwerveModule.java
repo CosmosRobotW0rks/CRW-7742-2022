@@ -30,7 +30,7 @@ public class SwerveModule {
     double TargetAngle = 0;
 
     public void Drive(double Speed) {
-        DriveSpark.set(Speed);
+        DriveSpark.set(Speed); //TODO PID Loop with speed controller
     }
 
     public double Angle() {
@@ -41,16 +41,16 @@ public class SwerveModule {
         TargetAngle = Math.toRadians(angle);
 
         double currentAngle = AngleEncoder.getPosition();
+        
         // Clamp currentAngle
-        double currentAngleMod = currentAngle % (2.0 * Math.PI);
-        if (currentAngleMod < 0.0)
-            currentAngleMod += 2.0 * Math.PI;
+        double currentAngleClamped = currentAngle % (2.0 * Math.PI);
+        currentAngleClamped += currentAngleClamped < 0 ? 2.0 * Math.PI : 0;
 
         // Find shortest route
-        double newTarget = TargetAngle + currentAngle - currentAngleMod;
-        if (TargetAngle - currentAngleMod > Math.PI)
+        double newTarget = TargetAngle + currentAngle - currentAngleClamped;
+        if (TargetAngle - currentAngleClamped > Math.PI)
             newTarget -= 2.0 * Math.PI;
-        if (TargetAngle - currentAngleMod < -Math.PI)
+        if (TargetAngle - currentAngleClamped < -Math.PI)
             newTarget += 2.0 * Math.PI;
 
         angleController.setReference(newTarget, ControlType.kPosition);

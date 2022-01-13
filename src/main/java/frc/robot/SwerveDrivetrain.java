@@ -28,7 +28,7 @@ public class SwerveDrivetrain {
     public void Drive(Translation2d xyspeed, double zrotation) {
         ChassisSpeeds fieldOrientedXYSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xyspeed.getX(), xyspeed.getY(),
                 zrotation,
-                Rotation2d.fromDegrees(-gyro.getAngle()));   // Gyro is upside down? TODO Invert gyro with software
+                Rotation2d.fromDegrees(-gyro.getAngle()));   // Gyro is upside down? TODO Invert gyro properly
 
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(fieldOrientedXYSpeeds);
 
@@ -42,7 +42,6 @@ public class SwerveDrivetrain {
 
 
         //Set speeds
-        //TODO Calibration
         TL.Drive(states[0].speedMetersPerSecond);  
         TR.Drive(states[1].speedMetersPerSecond);
         BL.Drive(states[2].speedMetersPerSecond);
