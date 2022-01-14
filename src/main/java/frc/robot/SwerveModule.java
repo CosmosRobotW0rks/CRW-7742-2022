@@ -28,7 +28,7 @@ public class SwerveModule {
         angleController.setD(0.5);
 
         driveController = DriveSpark.getPIDController();
-        driveController.setP(0.025);
+        driveController.setP(0.01);
         driveController.setI(0);
         driveController.setD(0.1);
     }
