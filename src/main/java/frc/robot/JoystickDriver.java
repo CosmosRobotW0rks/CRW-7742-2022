@@ -16,10 +16,10 @@ class JoystickDriver{
 		double ySpeed = joystick.getRawAxis(0) / 1;
         double rot = joystick.getRawAxis(4)    / 4;
 
-        double speed_decrease = 1 / (1 + joystick.getRawAxis(3) * 5);
-        double speed_increase = (1 + joystick.getRawAxis(2) * 5);
+        //double speed_decrease = 1 / (1 + joystick.getRawButton(UNKNOWN) * 5); //TODO Speed decrease button
+        double speed_increase = (1 + joystick.getRawAxis(3) * 5);
         double speed_normal = 0.2;
-        double speed = (speed_decrease * speed_increase) * speed_normal;
+        double speed = speed_increase * speed_normal;
 
         if(speed > 1)
             joystick.setRumble(RumbleType.kLeftRumble, speed - 1);
