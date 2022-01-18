@@ -5,15 +5,21 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
-import edu.wpi.first.math.controller.PIDController;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class SwerveModule {
     private CANSparkMax AngleSpark;
     private CANSparkMax DriveSpark;
     private RelativeEncoder AngleEncoder;
+    private RelativeEncoder DriveEncoder;
 
     private SparkMaxPIDController angleController;
     private SparkMaxPIDController driveController;
+
+
+    private final double SPEED_CALIB_VALUE =  0.95 / 3.45; // software value / real value
 
     public SwerveModule(int AngleCANID, int DriveCANID) {
         AngleSpark = new CANSparkMax(AngleCANID, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -21,6 +27,9 @@ public class SwerveModule {
 
         AngleEncoder = AngleSpark.getEncoder();
         AngleEncoder.setPositionConversionFactor(2.0 * Math.PI / (18 / 1));
+
+        DriveEncoder = DriveSpark.getEncoder();
+
 
         angleController = AngleSpark.getPIDController();
         angleController.setP(1.5);
@@ -36,8 +45,7 @@ public class SwerveModule {
     double TargetAngle = 0;
 
     public void Drive(double Speed) {
-        System.out.println(Speed);
-        driveController.setReference(Speed * 250.0, ControlType.kVelocity);
+        driveController.setReference(Speed * 250.0 * SPEED_CALIB_VALUE, ControlType.kVelocity);
     }
 
     public double Angle() {
@@ -61,5 +69,17 @@ public class SwerveModule {
             newTarget += 2.0 * Math.PI;
 
         angleController.setReference(newTarget, ControlType.kPosition);
+    }
+
+
+    public SwerveModuleState GetState(){
+        double speed = DriveEncoder.getVelocity() / 250.0 / SPEED_CALIB_VALUE;
+        double angle = Math.toDegrees(Angle());
+
+        SwerveModuleState state = new SwerveModuleState();
+        state.angle = Rotation2d.fromDegrees(angle);
+        state.speedMetersPerSecond = speed;
+
+        return state;
     }
 }
