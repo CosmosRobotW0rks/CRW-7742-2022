@@ -7,9 +7,9 @@ import edu.wpi.first.math.geometry.Translation2d;
 
 public class AutonomousWaypointDriver extends SubsystemBase {
     public static SwerveDrivetrain drivetrain;
-    private PIDController xPositionController = new PIDController(6, 0, 2);
-    private PIDController yPositionController = new PIDController(6, 0, 2);
-    private PIDController zRotController = new PIDController(0.15, 0, 0.05);
+    private PIDController xPositionController = new PIDController(6, 0, 0.8);
+    private PIDController yPositionController = new PIDController(6, 0, 0.8);
+    private PIDController zRotController = new PIDController(0.25, 0, 0.025);
 
     private Pose2d TargetPose;
     public boolean AtTarget = false;
