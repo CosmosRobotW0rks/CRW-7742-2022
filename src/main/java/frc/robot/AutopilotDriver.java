@@ -5,7 +5,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
-public class AutonomousWaypointDriver extends SubsystemBase {
+public class AutopilotDriver extends SubsystemBase {
     public static SwerveDrivetrain drivetrain;
     private PIDController xPositionController = new PIDController(6, 0, 0.8);
     private PIDController yPositionController = new PIDController(6, 0, 0.8);

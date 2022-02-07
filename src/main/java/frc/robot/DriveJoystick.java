@@ -7,11 +7,11 @@ public class DriveJoystick extends CommandBase {
     private final SwerveDrivetrain drivetrain;
     private final JoystickDriver joyDriver;
 
-    public DriveJoystick(SwerveDrivetrain drive) {
+    public DriveJoystick(SwerveDrivetrain drive, AutopilotDriver driver) {
         drivetrain = drive;
         addRequirements(drivetrain);
 
-        joyDriver = new JoystickDriver(drivetrain);
+        joyDriver = new JoystickDriver(drivetrain, driver);
     }
 
     @Override

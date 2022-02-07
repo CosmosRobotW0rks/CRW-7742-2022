@@ -5,13 +5,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutonomousWaypointDriveCommand extends CommandBase{
+public class AutopilotCommand extends CommandBase{
 
-    private final AutonomousWaypointDriver Driver;
+    private final AutopilotDriver Driver;
     private final SwerveDrivetrain Drivetrain;
     private final Pose2d Target;
 
-    public AutonomousWaypointDriveCommand(AutonomousWaypointDriver driver, SwerveDrivetrain drivetrain, Pose2d target) {
+    public AutopilotCommand(AutopilotDriver driver, SwerveDrivetrain drivetrain, Pose2d target) {
         Driver = driver;
         Drivetrain = drivetrain;
         addRequirements(Driver);

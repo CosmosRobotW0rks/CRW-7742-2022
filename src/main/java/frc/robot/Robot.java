@@ -6,11 +6,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Commands.Autonomous.TestAutoSequential;
 
 public class Robot extends TimedRobot {
 	public SwerveDrivetrain drivetrain = new SwerveDrivetrain();
-	public DriveJoystick driveJoystick = new DriveJoystick(drivetrain);
-	public AutonomousWaypointDriver autoDriver = new AutonomousWaypointDriver();
+	public AutopilotDriver autoDriver = new AutopilotDriver();
+
+	public DriveJoystick driveJoystick = new DriveJoystick(drivetrain, autoDriver);
 	public TestAutoSequential autoDriveCmd = new TestAutoSequential(drivetrain, autoDriver);
 
 	@Override
@@ -26,13 +28,11 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		driveJoystick.end(false);
 		autoDriveCmd.schedule(true);
 	}
 
 	@Override
 	public void teleopInit() {
-		autoDriveCmd.end(false);
 		driveJoystick.schedule(true);
 	}
 
