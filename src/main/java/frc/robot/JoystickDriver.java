@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Commands.HomeWheels;
+import frc.robot.Commands.ResetOdometryWithJoystick;
 import frc.robot.Commands.Autonomous.TeleopHome;
 import edu.wpi.first.wpilibj2.command.button.*;
 
@@ -18,13 +20,14 @@ class JoystickDriver{
         drivetrain = drive;
         driver = autodriver;
 
-        Button button1 = new JoystickButton(joystick, 1);
-        button1.whenPressed(new TeleopHome(drivetrain, driver));
+        new JoystickButton(joystick, 1).whenPressed(new TeleopHome(drivetrain, driver));
+        new JoystickButton(joystick, 4).whenPressed(new HomeWheels(drivetrain));
+        new JoystickButton(joystick, 9).whenPressed(new ResetOdometryWithJoystick(drivetrain, joystick));
     }
 
 	public void Drive(){
 		double xSpeed = joystick.getRawAxis(1) / 1;
-		double ySpeed = joystick.getRawAxis(0) / 1 - 0.3;
+		double ySpeed = joystick.getRawAxis(0) / 1;
         double rot = joystick.getRawAxis(4)    / 8;
 
         xSpeed = Math.abs(xSpeed) > 0.2 ? xSpeed : 0;

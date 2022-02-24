@@ -1,9 +1,10 @@
-package frc.robot;
+package frc.robot.Commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.AutopilotDriver;
+import frc.robot.SwerveDrivetrain;
 
 public class AutopilotCommand extends CommandBase{
 
