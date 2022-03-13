@@ -5,7 +5,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.AutopilotDriver;
 import frc.robot.SwerveDrivetrain;
-import frc.robot.Commands.AutopilotCommand;
 
 public class TestAutoSequential extends SequentialCommandGroup {
 
