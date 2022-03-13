@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AutopilotDriver;
 import frc.robot.SwerveDrivetrain;
 import frc.robot.Commands.HomeWheels;
-import frc.robot.Commands.Autonomous.AutopilotCommand;
 import frc.robot.Commands.Autonomous.KeepLookingAt;
 import frc.robot.Commands.Autonomous.TeleopHome;
 import frc.robot.Intake.ApplyIntakeSpeed;

@@ -18,7 +18,6 @@ public class ShooterMotorController extends SubsystemBase {
     private PIDController ShooterPID = new PIDController(0.5, 0, 0.05);
 
     private long prevMillis;
-    private long prevMillis2;
     private long prevEncoder;
 
     public double targetRPS = 0;

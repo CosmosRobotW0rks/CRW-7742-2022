@@ -1,8 +1,6 @@
 package frc.robot.Intake;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Shooter.Conveyor;
 
 public class StopIntake extends CommandBase {
     private final Intake intake;

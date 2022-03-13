@@ -4,7 +4,6 @@ import java.util.Date;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Shooter.Shooter;
-import frc.robot.Shooter.ShooterMotorController;
 
 public class SpinUp extends CommandBase {
     private final Shooter shooter;
