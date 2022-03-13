@@ -3,9 +3,11 @@ package frc.robot;
 import edu.wpi.first.math.kinematics.*; //TODO Odometry
 import edu.wpi.first.math.geometry.*;
 import com.kauailabs.navx.frc.*;
+
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.ControlSystem.JoystickDriver;
 
 public class SwerveDrivetrain extends SubsystemBase {
     private final double WIDTH = 11.2; // Inches? TODO Add dimensions
@@ -17,6 +19,11 @@ public class SwerveDrivetrain extends SubsystemBase {
     private SwerveModule BR = new SwerveModule(6, 5);
     public AHRS gyro = new AHRS(SPI.Port.kMXP);
 
+    public JoystickDriver joyDriver;
+
+    private Translation2d combinedTranslation = new Translation2d(0, 0);
+    private double combinedRZ = 0;
+
     private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
             new Translation2d(WIDTH, HEIGHT),
             new Translation2d(WIDTH, -HEIGHT),
@@ -27,9 +34,14 @@ public class SwerveDrivetrain extends SubsystemBase {
         gyro.calibrate();
     }
 
-    public void Drive(Translation2d xyspeed, double zrotation) {
-        ChassisSpeeds fieldOrientedXYSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xyspeed.getX(), xyspeed.getY(),
-                zrotation,
+    public void SetSpeed(Translation2d xyspeed, double zrotation){
+        combinedTranslation = new Translation2d(combinedTranslation.getX() + xyspeed.getX(), combinedTranslation.getY() + xyspeed.getY());
+        combinedRZ += zrotation;
+    }
+
+    public void Drive() {
+        ChassisSpeeds fieldOrientedXYSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(combinedTranslation.getX(), combinedTranslation.getY(),
+        -combinedRZ,
                 Rotation2d.fromDegrees(-gyro.getAngle())); // Gyro is upside down? TODO Invert gyro properly
 
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(fieldOrientedXYSpeeds);
@@ -46,6 +58,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         TR.Drive(states[1].speedMetersPerSecond);
         BL.Drive(states[2].speedMetersPerSecond);
         BR.Drive(states[3].speedMetersPerSecond);
+
+        combinedTranslation = new Translation2d(0, 0);
+        combinedRZ = 0;
     }
 
     public void Home() {
@@ -70,8 +85,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         odometry.update(gyroAngle, states);
         OdometryOutPose = odometry.getPoseMeters();
 
-        double x_formatted = Math.floor(OdometryOutPose.getX() * 1000) / 1000;
-        double Y_formatted = Math.floor(OdometryOutPose.getY() * 1000) / 1000;
+        double x_formatted = OdometryOutPose.getX() > 0.001 ? Math.floor(OdometryOutPose.getX() * 1000) / 1000 : 0;
+        double Y_formatted = OdometryOutPose.getY() > 0.001 ? Math.floor(OdometryOutPose.getX() * 1000) / 1000 : 0;
 
         SmartDashboard.putString("ODOM_POSE", ("x: " + x_formatted + ", y: " + Y_formatted));
     }

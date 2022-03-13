@@ -12,13 +12,9 @@ public class TestAutoSequential extends SequentialCommandGroup {
   public TestAutoSequential(SwerveDrivetrain drivetrain, AutopilotDriver driver) {
     addCommands(
 
+        new AutopilotCommand(driver, drivetrain, new Pose2d(1, 0, Rotation2d.fromDegrees(0))),
         new AutopilotCommand(driver, drivetrain, new Pose2d(1, 0, Rotation2d.fromDegrees(180))),
-        new AutopilotCommand(driver, drivetrain, new Pose2d(1, 1, Rotation2d.fromDegrees(270))),
-        new AutopilotCommand(driver, drivetrain, new Pose2d(0, 1, Rotation2d.fromDegrees(360))),
-        new AutopilotCommand(driver, drivetrain, new Pose2d(0, 1, Rotation2d.fromDegrees(360))),
-        new AutopilotCommand(driver, drivetrain, new Pose2d(1, 1, Rotation2d.fromDegrees(360))),
-        new AutopilotCommand(driver, drivetrain, new Pose2d(1, 0, Rotation2d.fromDegrees(360))),
-        new AutopilotCommand(driver, drivetrain, new Pose2d(0, 0, Rotation2d.fromDegrees(360)))
+        new AutopilotCommand(driver, drivetrain, new Pose2d(0, 0, Rotation2d.fromDegrees(0)))
 
     );
   }

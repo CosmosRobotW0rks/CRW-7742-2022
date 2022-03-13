@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutopilotDriver extends SubsystemBase {
     public static SwerveDrivetrain drivetrain;
@@ -18,11 +19,15 @@ public class AutopilotDriver extends SubsystemBase {
     public void periodic() {
         if (TargetPose != null)
             DriveToWaypoint();
+
+        SmartDashboard.putBoolean("Autopilot Active", TargetPose != null);
     }
 
     public void Goto(Pose2d target) {
         TargetPose = target;
         AtTarget = false;
+
+        drivetrain.joyDriver.Disable();
     }
 
     public void DriveToWaypoint() {
@@ -46,9 +51,9 @@ public class AutopilotDriver extends SubsystemBase {
         rot = Math.abs(rot) > 0.025 ? rot : 0;
 
         if (diff > 0.025 && rot <= 0.45)
-            drivetrain.Drive(new Translation2d(xPwr, yPwr), rot);
+            drivetrain.SetSpeed(new Translation2d(xPwr, yPwr), rot);
         else if (rot != 0)
-            drivetrain.Drive(new Translation2d(0, 0), rot);
+            drivetrain.SetSpeed(new Translation2d(0, 0), rot);
         else
             AtTarget = true;
 
