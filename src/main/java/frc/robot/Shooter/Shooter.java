@@ -7,11 +7,12 @@ public class Shooter {
     public HoodMotorController hoodMotorController = new HoodMotorController(encoders);
 
     public void Setup(){
+        //encoders.Setup();
     }
 
     public void SlowUpdate(){
         shooterMotorController.UpdateMotor();
         hoodMotorController.UpdateMotor();
-        encoders.readEncoders();
+        //encoders.readEncoders();
     }
 }
