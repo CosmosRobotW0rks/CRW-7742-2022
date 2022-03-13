@@ -15,7 +15,7 @@ public class ShooterMotorController extends SubsystemBase {
     private final int ENCODER_CLICKS_PER_ROTATION = 800;
 
     private VictorSPX ShooterMotor = new VictorSPX(15);
-    private PIDController ShooterPID = new PIDController(0.5, 0, 0.15);
+    private PIDController ShooterPID = new PIDController(0.5, 0, 0.05);
 
     private long prevMillis;
     private long prevMillis2;

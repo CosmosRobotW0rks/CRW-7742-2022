@@ -1,5 +1,6 @@
 package frc.robot.ControlSystem;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetJoystick extends CommandBase {
@@ -20,6 +21,10 @@ public class SetJoystick extends CommandBase {
         joyDriver.TranslationXEnabled = tX;
         joyDriver.TranslationYEnabled = tY;
         joyDriver.RotationZEnabled = rZ;
+
+        SmartDashboard.putBoolean("Joystick X Enabled", tX);
+        SmartDashboard.putBoolean("Joystick Y Enabled", tY);
+        SmartDashboard.putBoolean("Joystick R Enabled", rZ);
     }
 
     @Override

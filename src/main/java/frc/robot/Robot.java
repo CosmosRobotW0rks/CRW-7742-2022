@@ -22,15 +22,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
-	public Shooter shooterCTL = new Shooter();
-	public Pneumatics pneumatics = new Pneumatics();
-	public Intake intake = new Intake();
-
 	public SwerveDrivetrain drivetrain = new SwerveDrivetrain();
 	public AutopilotDriver autoDriver = new AutopilotDriver();
 	public Power powerMgmt = new Power();
 
-	public PhysicsProcessor physxCalc = new PhysicsProcessor();
+	public Shooter shooterCTL = new Shooter(drivetrain, autoDriver);
+	public Pneumatics pneumatics = new Pneumatics();
+	public Intake intake = new Intake();
 
 	public JoystickDriver joyDriver = new JoystickDriver(drivetrain, autoDriver, shooterCTL, pneumatics, intake);
 	public DashboardControl dashboard = new DashboardControl(drivetrain, autoDriver, pneumatics, shooterCTL, intake);
@@ -42,7 +40,6 @@ public class Robot extends TimedRobot {
 	public Robot(){
 		addPeriodic(() -> shooterCTL.SlowUpdate(), 0.1);
 		addPeriodic(() -> intake.UpdateSpeed(), 0.1);
-		addPeriodic(() -> physxCalc.UpdateData(), 0.1);
 	}
 
 	@Override
@@ -51,7 +48,6 @@ public class Robot extends TimedRobot {
 		autoDriver.Init(drivetrain);
 		shooterCTL.Setup();
 		pneumatics.Setup();
-		physxCalc.Setup();
 
 		autoModeChooser.addOption("Home Wheels", new HomeWheels(drivetrain));
 		autoModeChooser.addOption("Go Places", new TestAutoSequential(drivetrain, autoDriver));

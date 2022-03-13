@@ -9,6 +9,7 @@ public class ApplyIntakeSpeed extends CommandBase {
 
     public ApplyIntakeSpeed(Intake itk) {
         intake = itk;
+        SmartDashboard.putNumber("Intake Power", 0);
     }
 
     @Override

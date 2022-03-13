@@ -10,13 +10,16 @@ public class SpinUp extends CommandBase {
     private final Shooter shooter;
     private final double targetRPS;
 
+    double MPS_PER_RPS = 0.51;
+    double ENG_COEFF = 1.2;
+
     int hold = 0;
     int holdtgt = 20;
     long pms = 0;
 
-    public SpinUp(Shooter sh, double tRPS) {
+    public SpinUp(Shooter sh, double tMPS) {
         shooter = sh;
-        targetRPS = tRPS;
+        targetRPS = (tMPS / MPS_PER_RPS) * ENG_COEFF;
     }
 
     @Override
@@ -25,6 +28,7 @@ public class SpinUp extends CommandBase {
         shooter.shooterMotorController.targetRPS = targetRPS;
 
         pms = new Date().getTime();
+        hold = 0;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class SpinUp extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         shooter.shooterMotorController.targetRPS = 0;
+        hold = 0;
     }
 
     @Override

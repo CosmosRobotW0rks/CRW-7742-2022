@@ -9,6 +9,7 @@ public class ApplyConveyorSpeed extends CommandBase {
 
     public ApplyConveyorSpeed(Conveyor cnv) {
         conveyor = cnv;
+        SmartDashboard.putNumber("Conveyor speed", 0);
     }
 
     @Override

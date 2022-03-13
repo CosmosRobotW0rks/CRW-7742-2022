@@ -47,6 +47,7 @@ public class JoystickDriver extends SubsystemBase {
         new JoystickButton(joystick, 3).whenPressed(new StopIntake(itk));
         new JoystickButton(joystick, 6).whenPressed(new ApplyConveyorSpeed(shooter.conveyor));
         new JoystickButton(joystick, 4).whenPressed(new StopConveyor(shooter.conveyor));
+
         /*
         new JoystickButton(joystick, 8).whenPressed(new TeleopHome(drivetrain, driver));
         new JoystickButton(joystick, 7).whenPressed(new HomeWheels(drivetrain));
@@ -61,6 +62,10 @@ public class JoystickDriver extends SubsystemBase {
 
     @Override
     public void periodic() {
+        TranslationXEnabled = SmartDashboard.getBoolean("Joystick X Enabled", true);
+        TranslationYEnabled = SmartDashboard.getBoolean("Joystick X Enabled", true);
+        RotationZEnabled = SmartDashboard.getBoolean("Joystick R Enabled", true);
+
         double xSpeed = TranslationXEnabled ? -joystick.getRawAxis(1) / 1 : 0;
         double ySpeed = TranslationYEnabled ? -joystick.getRawAxis(0) / 1 : 0;
         double rot = RotationZEnabled ? joystick.getRawAxis(2) / 16 : 0;
@@ -91,11 +96,19 @@ public class JoystickDriver extends SubsystemBase {
         TranslationXEnabled = true;
         TranslationYEnabled = true;
         RotationZEnabled = true;
+
+        SmartDashboard.putBoolean("Joystick X Enabled", true);
+        SmartDashboard.putBoolean("Joystick Y Enabled", true);
+        SmartDashboard.putBoolean("Joystick R Enabled", true);
     }
 
     public void Disable() {
         TranslationXEnabled = false;
         TranslationYEnabled = false;
         RotationZEnabled = false;
+
+        SmartDashboard.putBoolean("Joystick X Enabled", false);
+        SmartDashboard.putBoolean("Joystick Y Enabled", false);
+        SmartDashboard.putBoolean("Joystick R Enabled", false);
     }
 }

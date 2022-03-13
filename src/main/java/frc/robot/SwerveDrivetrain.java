@@ -72,7 +72,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
     public Rotation2d gyroAngle = new Rotation2d();
     public SwerveDriveOdometry odometry = new SwerveDriveOdometry(kinematics, gyroAngle);
-    Pose2d OdometryOutPose;
+    public Pose2d OdometryOutPose;
 
     public void Odometry() {
         SwerveModuleState[] states = new SwerveModuleState[4];

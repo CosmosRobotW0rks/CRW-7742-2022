@@ -18,9 +18,9 @@ public class HoodMotorController {
     private double output = 0;
     private long prevms = 0;
 
-    public double targetRevs = 20d / 360d;
+    public double targetRevs = 27d / 360d;
 
-    public long encoderOffset = 30;
+    public long encoderOffset = 50;
 
     HoodMotorController(EncoderComms encoders) {
         Encoders = encoders;

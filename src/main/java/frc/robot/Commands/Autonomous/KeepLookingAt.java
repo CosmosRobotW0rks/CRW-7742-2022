@@ -1,18 +1,19 @@
-package frc.robot.Commands;
+package frc.robot.Commands.Autonomous;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.AutopilotDriver;
 import frc.robot.SwerveDrivetrain;
 
-public class AutopilotCommand extends CommandBase{
+public class KeepLookingAt extends CommandBase{
 
     private final AutopilotDriver Driver;
     private final SwerveDrivetrain Drivetrain;
-    private final Pose2d Target;
+    private final Translation2d Target;
 
-    public AutopilotCommand(AutopilotDriver driver, SwerveDrivetrain drivetrain, Pose2d target) {
+    public KeepLookingAt(AutopilotDriver driver, SwerveDrivetrain drivetrain, Translation2d target) {
         Driver = driver;
         Drivetrain = drivetrain;
         addRequirements(Driver);
@@ -23,7 +24,14 @@ public class AutopilotCommand extends CommandBase{
 
     @Override
     public void initialize() {
-        Driver.Goto(Target);
+        Driver.tX = false;
+        Driver.tY = false;
+    }
+
+    @Override
+    public void execute() {
+        Pose2d tgt = new Pose2d(0, 0, Rotation2d.fromDegrees(Math.atan((-Target.getY()) / (-Target.getX()))));
+        Driver.Goto(tgt);
     }
 
     @Override
@@ -34,7 +42,9 @@ public class AutopilotCommand extends CommandBase{
 
     @Override
     public boolean isFinished() {
-        return Driver.AtTarget;
+        return false;
     }
 
 }
+
+

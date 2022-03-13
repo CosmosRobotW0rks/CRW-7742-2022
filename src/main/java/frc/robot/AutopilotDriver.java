@@ -15,6 +15,10 @@ public class AutopilotDriver extends SubsystemBase {
     private Pose2d TargetPose;
     public boolean AtTarget = false;
 
+    public boolean tX = true;
+    public boolean tY = true;
+    public boolean rZ = true;
+
     @Override
     public void periodic() {
         if (TargetPose != null)
@@ -49,6 +53,10 @@ public class AutopilotDriver extends SubsystemBase {
         double rot = -zRotController.calculate(currentAngle, targetAngle);
         rot = Math.copySign(Math.min(Math.abs(rot), 0.05), rot);
         rot = Math.abs(rot) > 0.025 ? rot : 0;
+
+        xPwr = tX ? xPwr : 0;
+        yPwr = tY ? xPwr : 0;
+        rot = rZ ? rot : 0;
 
         if (diff > 0.025 && rot <= 0.45)
             drivetrain.SetSpeed(new Translation2d(xPwr, yPwr), rot);

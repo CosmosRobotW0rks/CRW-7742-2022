@@ -24,6 +24,9 @@ public class EncoderComms {
             return;
         }
 
+        int pt = data.indexOf(';');
+        data = data.subSequence(0, pt < 0 ? 0 : pt).toString();
+
         try {
             String shooterData = data.split(",")[0];
             String hoodData = data.split(",")[1];
