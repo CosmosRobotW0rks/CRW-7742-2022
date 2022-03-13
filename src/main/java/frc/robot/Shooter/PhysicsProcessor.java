@@ -39,9 +39,8 @@ public class PhysicsProcessor extends SubsystemBase {
         dY.setDouble(2.6);
         land_angle.setDouble(45);
 
-        double resultAngle = shootAngle.getDouble(0);
-        double resultSpeed = shootSpeed.getDouble(0);
-
-        System.out.println("Retrieved phyx calc data! Params are: dx=" + dX.getDouble(0) + ", dy=" + dY.getDouble(0) + ", angle=" + land_angle.getDouble(0) + ", results are: angle=" + resultAngle + ", spd=" + resultSpeed);
+        //double resultAngle = shootAngle.getDouble(0);
+        //double resultSpeed = shootSpeed.getDouble(0);
+        //System.out.println("Retrieved phyx calc data! Params are: dx=" + dX.getDouble(0) + ", dy=" + dY.getDouble(0) + ", angle=" + land_angle.getDouble(0) + ", results are: angle=" + resultAngle + ", spd=" + resultSpeed);
     }
 }

@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.security.PublicKey;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -14,7 +12,6 @@ import frc.robot.Commands.Autonomous.TestAutoSequential;
 import frc.robot.Intake.Intake;
 import frc.robot.Pneumatics.Pneumatics;
 import frc.robot.PowerMgmt.Power;
-import frc.robot.Shooter.PhysicsProcessor;
 import frc.robot.Shooter.Shooter;
 import frc.robot.ControlSystem.DashboardControl;
 import frc.robot.ControlSystem.JoystickDriver;
@@ -30,7 +27,7 @@ public class Robot extends TimedRobot {
 	public Pneumatics pneumatics = new Pneumatics();
 	public Intake intake = new Intake();
 
-	public JoystickDriver joyDriver = new JoystickDriver(drivetrain, autoDriver, shooterCTL, pneumatics, intake);
+	public JoystickDriver joyDriver = new JoystickDriver(drivetrain, shooterCTL, pneumatics, intake);
 	public DashboardControl dashboard = new DashboardControl(drivetrain, autoDriver, pneumatics, shooterCTL, intake);
 
 	SendableChooser<Command> autoModeChooser = new SendableChooser<>();
