@@ -1,6 +1,7 @@
 package frc.robot.Shooter;
 
 import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SwerveDrivetrain;
 
@@ -13,9 +14,11 @@ public class PhysicsProcessor extends SubsystemBase {
     public NetworkTableEntry shootAngle;
 
     SwerveDrivetrain drivetrain;
+    Shooter shooter;
 
-    public PhysicsProcessor(SwerveDrivetrain drive){
+    public PhysicsProcessor(SwerveDrivetrain drive ,Shooter sh){
         drivetrain = drive;
+        shooter = sh;
     }
 
     public void Setup(){
@@ -42,5 +45,10 @@ public class PhysicsProcessor extends SubsystemBase {
         //double resultAngle = shootAngle.getDouble(0);
         //double resultSpeed = shootSpeed.getDouble(0);
         //System.out.println("Retrieved phyx calc data! Params are: dx=" + dX.getDouble(0) + ", dy=" + dY.getDouble(0) + ", angle=" + land_angle.getDouble(0) + ", results are: angle=" + resultAngle + ", spd=" + resultSpeed);
+    
+        SmartDashboard.putNumber("Shoot Angle", shootAngle.getDouble(0));
+        SmartDashboard.putNumber("Shoot Speed", shootSpeed.getDouble(0));
+
+        shooter.hoodMotorController.targetRevs = (90 - shootAngle.getDouble(0)) / 360d;
     }
 }

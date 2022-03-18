@@ -85,8 +85,8 @@ public class SwerveDrivetrain extends SubsystemBase {
         odometry.update(gyroAngle, states);
         OdometryOutPose = odometry.getPoseMeters();
 
-        double x_formatted = OdometryOutPose.getX() > 0.001 ? Math.floor(OdometryOutPose.getX() * 1000) / 1000 : 0;
-        double Y_formatted = OdometryOutPose.getY() > 0.001 ? Math.floor(OdometryOutPose.getX() * 1000) / 1000 : 0;
+        double x_formatted = Math.abs(OdometryOutPose.getX()) > 0.001 ? Math.floor(OdometryOutPose.getX() * 1000) / 1000 : 0;
+        double Y_formatted = Math.abs(OdometryOutPose.getY()) > 0.001 ? Math.floor(OdometryOutPose.getY() * 1000) / 1000 : 0;
 
         SmartDashboard.putString("ODOM_POSE", ("x: " + x_formatted + ", y: " + Y_formatted));
     }

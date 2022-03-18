@@ -19,7 +19,7 @@ public class SwerveModule {
     private SparkMaxPIDController driveController;
 
 
-    private final double SPEED_CALIB_VALUE =  0.95 / 3.45; // software value / real value
+    private final double SPEED_CALIB_VALUE =  0.33 / 2; // software value / real value
 
     public SwerveModule(int AngleCANID, int DriveCANID) {
         AngleSpark = new CANSparkMax(AngleCANID, CANSparkMaxLowLevel.MotorType.kBrushless);

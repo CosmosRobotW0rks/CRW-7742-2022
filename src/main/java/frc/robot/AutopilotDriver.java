@@ -30,8 +30,6 @@ public class AutopilotDriver extends SubsystemBase {
     public void Goto(Pose2d target) {
         TargetPose = target;
         AtTarget = false;
-
-        drivetrain.joyDriver.Disable();
     }
 
     public void DriveToWaypoint() {

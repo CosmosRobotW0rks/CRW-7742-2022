@@ -11,23 +11,19 @@ public class Pneumatics extends SubsystemBase {
     Solenoid solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
     public void Setup() {
-        //
+        compressor.enableDigital();
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putBoolean("Compressor", compressor.enabled());
+        SmartDashboard.putBoolean("Compressor Switch", compressor.getPressureSwitchValue());
         SmartDashboard.putString("Piston status", solenoid.get() ? "Extended" : "Retracted");
 
-        if (!SmartDashboard.getBoolean("Compressor Enabled?", false))
-            compressor.disable();
-        else
-            compressor.enableDigital();
-
-            SmartDashboard.putNumber("Compressor Current", compressor.getCurrent());
+        SmartDashboard.putNumber("Compressor Current", compressor.getCurrent());
     }
 
-    public void SetPistons(boolean value){
+    public void SetPistons(boolean value) {
         solenoid.set(value);
     }
 }

@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Commands.HomeWheels;
-import frc.robot.Commands.Autonomous.TestAutoSequential;
+import frc.robot.Commands.MoveOutOfTarmac;
+import frc.robot.Commands.Autonomous.AutoCommands;
 import frc.robot.Intake.Intake;
 import frc.robot.Pneumatics.Pneumatics;
 import frc.robot.PowerMgmt.Power;
@@ -27,16 +28,15 @@ public class Robot extends TimedRobot {
 	public Pneumatics pneumatics = new Pneumatics();
 	public Intake intake = new Intake();
 
-	public JoystickDriver joyDriver = new JoystickDriver(drivetrain, shooterCTL, pneumatics, intake);
+	public JoystickDriver joyDriver = new JoystickDriver(drivetrain, autoDriver, shooterCTL, pneumatics, intake);
 	public DashboardControl dashboard = new DashboardControl(drivetrain, autoDriver, pneumatics, shooterCTL, intake);
-
-	SendableChooser<Command> autoModeChooser = new SendableChooser<>();
 
 	public static boolean isdisabled = true;
 
 	public Robot(){
 		addPeriodic(() -> shooterCTL.SlowUpdate(), 0.1);
 		addPeriodic(() -> intake.UpdateSpeed(), 0.1);
+		
 	}
 
 	@Override
@@ -45,11 +45,6 @@ public class Robot extends TimedRobot {
 		autoDriver.Init(drivetrain);
 		shooterCTL.Setup();
 		pneumatics.Setup();
-
-		autoModeChooser.addOption("Home Wheels", new HomeWheels(drivetrain));
-		autoModeChooser.addOption("Go Places", new TestAutoSequential(drivetrain, autoDriver));
-		
-		SmartDashboard.putData(autoModeChooser);
 	}
 
 	@Override
@@ -64,8 +59,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		joyDriver.Disable();
 
-		if (autoModeChooser.getSelected() != null)
-			autoModeChooser.getSelected().schedule();
+		new MoveOutOfTarmac(drivetrain).schedule();
 	}
 
 	@Override

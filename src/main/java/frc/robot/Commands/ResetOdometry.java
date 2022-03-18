@@ -8,7 +8,7 @@ import frc.robot.SwerveDrivetrain;
 public class ResetOdometry extends CommandBase {
 
     private final SwerveDrivetrain Drivetrain;
-    public final Pose2d pose;
+    public Pose2d pose;
 
     public ResetOdometry(SwerveDrivetrain drivetrain, Pose2d p) {
         Drivetrain = drivetrain;
@@ -19,6 +19,7 @@ public class ResetOdometry extends CommandBase {
 
     @Override
     public void initialize() {
+        pose = new Pose2d(pose.getX(), pose.getY(), Rotation2d.fromDegrees(-Drivetrain.gyro.getAngle()));
         Drivetrain.odometry.resetPosition(pose, Rotation2d.fromDegrees(-Drivetrain.gyro.getAngle()));
     }
 

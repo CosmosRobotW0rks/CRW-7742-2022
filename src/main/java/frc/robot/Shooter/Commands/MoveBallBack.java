@@ -2,30 +2,30 @@ package frc.robot.Shooter.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Shooter.Shooter;
+import java.util.Date;
 
-public class HoldSpin extends CommandBase {
+public class MoveBallBack extends CommandBase {
     private final Shooter shooter;
-    private final double targetRPS;
+    private long startMS;
 
-    double MPS_PER_RPS = 0.51;
-    double ENG_COEFF = 1.25;
-
-    public HoldSpin(Shooter sh, double tMPS) {
+    public MoveBallBack(Shooter sh) {
         shooter = sh;
-        targetRPS = (tMPS / MPS_PER_RPS) * ENG_COEFF;
     }
 
     @Override
     public void initialize() {
-        shooter.shooterMotorController.SetTargetRPS(targetRPS);;
+        shooter.conveyor.SetSpeed(-0.75);
+        startMS = new Date().getTime();
     }
 
     @Override
     public void end(boolean interrupted) {
+        shooter.conveyor.SetSpeed(0);
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return (new Date().getTime() - startMS) > 50;
     }
 }
+

@@ -1,5 +1,6 @@
 package frc.robot.Shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.AutopilotDriver;
 import frc.robot.SwerveDrivetrain;
 
@@ -11,11 +12,14 @@ public class Shooter {
     public EncoderComms encoders = new EncoderComms();
     public ShooterMotorController shooterMotorController = new ShooterMotorController(encoders);
     public HoodMotorController hoodMotorController = new HoodMotorController(encoders);
-    public PhysicsProcessor physx = new PhysicsProcessor(drivetrain);
+    public PhysicsProcessor physx;
 
     public Shooter(SwerveDrivetrain drive, AutopilotDriver drvr){
         drivetrain = drive;
         driver = drvr;
+        physx = new PhysicsProcessor(drivetrain, this);
+
+        SmartDashboard.putNumber("Hood encoder offset", 50);
     }
 
     public void Setup(){

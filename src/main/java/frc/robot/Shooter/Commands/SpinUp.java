@@ -13,7 +13,7 @@ public class SpinUp extends CommandBase {
     double ENG_COEFF = 1.2;
 
     int hold = 0;
-    int holdtgt = 20;
+    int holdtgt = 15;
     long pms = 0;
 
     public SpinUp(Shooter sh, double tMPS) {
