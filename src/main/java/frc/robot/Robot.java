@@ -57,8 +57,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		joyDriver.Disable();
-
 		new MoveOutOfTarmac(drivetrain).schedule();
 	}
 
